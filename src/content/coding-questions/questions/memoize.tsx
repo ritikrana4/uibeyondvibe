@@ -3,7 +3,33 @@ import { AnimationCard } from "@/components/ui/animation-card";
 import { Code, InterviewNote, P, ProblemStatement, Ul } from "@/components/ui/prose";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Reveal } from "@/components/ui/reveal";
+import { CodePlayground } from "@/components/coding-questions/code-playground";
 import { MemoizeCallLog } from "@/components/animations/memoize-call-log";
+
+const MEMOIZE_STARTER = `function memoize(fn) {
+  // your code here
+}`;
+
+const MEMOIZE_TESTS = `
+if (typeof memoize !== "function") {
+  __check("memoize is defined", false, "Expected a top-level function named 'memoize'.");
+} else {
+  var callCount = 0;
+  var double = function (x) { callCount++; return x * 2; };
+  var memoizedDouble = memoize(double);
+
+  var r1 = memoizedDouble(5);
+  __check("memoizedDouble(5) returns 10", r1 === 10, "got " + JSON.stringify(r1));
+
+  var r2 = memoizedDouble(5);
+  __check("calling again with the same argument returns the cached value", r2 === 10, "got " + JSON.stringify(r2));
+  __check("the underlying function was only called once for repeated args", callCount === 1, "fn was actually called " + callCount + " time(s)");
+
+  var r3 = memoizedDouble(6);
+  __check("a new argument computes a fresh result", r3 === 12, "got " + JSON.stringify(r3));
+  __check("a new argument actually invokes the underlying function", callCount === 2, "fn was called " + callCount + " time(s) in total");
+}
+`;
 
 const MEMOIZE_SOLUTION = `function memoize(fn) {
   const cache = new Map();
@@ -78,9 +104,14 @@ export function MemoizeQuestion() {
         <MemoizeCallLog />
       </AnimationCard>
 
-      <P>Try writing it yourself first, then compare against this:</P>
+      <P>
+        Write your solution below and run it against a few checks — no
+        setup, it runs right here in your browser.
+      </P>
 
-      <Reveal>
+      <CodePlayground slug="memoize" starterCode={MEMOIZE_STARTER} testCode={MEMOIZE_TESTS} />
+
+      <Reveal label="Show reference solution">
         <CodeBlock code={MEMOIZE_SOLUTION} />
       </Reveal>
 

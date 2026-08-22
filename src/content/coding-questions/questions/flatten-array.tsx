@@ -3,7 +3,30 @@ import { AnimationCard } from "@/components/ui/animation-card";
 import { Code, InterviewNote, P, ProblemStatement, Ul } from "@/components/ui/prose";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Reveal } from "@/components/ui/reveal";
+import { CodePlayground } from "@/components/coding-questions/code-playground";
 import { FlattenTrace } from "@/components/animations/flatten-trace";
+
+const FLATTEN_STARTER = `function flatten(arr, depth = Infinity) {
+  // your code here
+}`;
+
+const FLATTEN_TESTS = `
+if (typeof flatten !== "function") {
+  __check("flatten is defined", false, "Expected a top-level function named 'flatten'.");
+} else {
+  var r1 = flatten([1, [2, 3, [4, 5]], 6]);
+  __check("fully flattens by default", __deepEqual(r1, [1, 2, 3, 4, 5, 6]), "got " + JSON.stringify(r1));
+
+  var r2 = flatten([1, [2, [3, [4]]]], 1);
+  __check("respects a depth of 1", __deepEqual(r2, [1, 2, [3, [4]]]), "got " + JSON.stringify(r2));
+
+  var r3 = flatten([]);
+  __check("handles an empty array", __deepEqual(r3, []), "got " + JSON.stringify(r3));
+
+  var r4 = flatten([1, 2, 3]);
+  __check("leaves an already-flat array unchanged", __deepEqual(r4, [1, 2, 3]), "got " + JSON.stringify(r4));
+}
+`;
 
 const FLATTEN_SOLUTION = `function flatten(arr, depth = Infinity) {
   return arr.reduce((result, item) => {
@@ -68,9 +91,14 @@ export function FlattenArrayQuestion() {
         <FlattenTrace />
       </AnimationCard>
 
-      <P>Try writing it yourself first, then compare against this:</P>
+      <P>
+        Write your solution below and run it against a few checks — no
+        setup, it runs right here in your browser.
+      </P>
 
-      <Reveal>
+      <CodePlayground slug="flatten-array" starterCode={FLATTEN_STARTER} testCode={FLATTEN_TESTS} />
+
+      <Reveal label="Show reference solution">
         <CodeBlock code={FLATTEN_SOLUTION} />
       </Reveal>
 

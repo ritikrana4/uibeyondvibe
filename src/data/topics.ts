@@ -74,7 +74,7 @@ export const topics: Topic[] = [
       "Classic hands-on JavaScript problems — implement it yourself, then walk through the approach, a working solution, and the follow-ups interviewers actually ask. A growing list, one question at a time.",
     category: "Coding Challenges",
     status: "published",
-    readingTime: "24 min so far",
+    readingTime: "32 min so far",
   },
 ];
 

@@ -28,6 +28,12 @@ export const codingQuestions: CodingQuestion[] = [
     difficulty: "Easy",
     tags: ["Recursion", "Arrays"],
   },
+  {
+    slug: "flatten-object",
+    title: "Flatten a Nested Object",
+    difficulty: "Medium",
+    tags: ["Recursion", "Objects"],
+  },
 ];
 
 export function getCodingQuestion(slug: string) {

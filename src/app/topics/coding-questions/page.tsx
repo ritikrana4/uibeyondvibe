@@ -30,7 +30,7 @@ export default function CodingQuestionsIndexPage() {
         </p>
         <div className="mt-4 flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-500">
           <span className="flex items-center gap-1.5">
-            <Clock className="h-3.5 w-3.5" /> 24 min so far
+            <Clock className="h-3.5 w-3.5" /> 32 min so far
           </span>
           <span className="flex items-center gap-1.5">
             <Layers3 className="h-3.5 w-3.5" /> {codingQuestions.length}{" "}

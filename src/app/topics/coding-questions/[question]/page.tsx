@@ -7,11 +7,13 @@ import { QuestionsRail } from "@/components/coding-questions/questions-rail";
 import { MemoizeQuestion } from "@/content/coding-questions/questions/memoize";
 import { DomFinderQuestion } from "@/content/coding-questions/questions/dom-finder";
 import { FlattenArrayQuestion } from "@/content/coding-questions/questions/flatten-array";
+import { FlattenObjectQuestion } from "@/content/coding-questions/questions/flatten-object";
 
 const CONTENT: Record<string, React.ComponentType> = {
   memoize: MemoizeQuestion,
   "dom-finder": DomFinderQuestion,
   "flatten-array": FlattenArrayQuestion,
+  "flatten-object": FlattenObjectQuestion,
 };
 
 export function generateStaticParams() {

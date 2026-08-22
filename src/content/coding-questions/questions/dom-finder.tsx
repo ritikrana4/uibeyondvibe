@@ -3,7 +3,37 @@ import { AnimationCard } from "@/components/ui/animation-card";
 import { Code, InterviewNote, P, ProblemStatement, Ul } from "@/components/ui/prose";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Reveal } from "@/components/ui/reveal";
+import { CodePlayground } from "@/components/coding-questions/code-playground";
 import { DomFinderTrace } from "@/components/animations/dom-finder-trace";
+
+const DOM_FINDER_STARTER = `function findElement(root, target) {
+  // your code here
+}`;
+
+const DOM_FINDER_TESTS = `
+if (typeof findElement !== "function") {
+  __check("findElement is defined", false, "Expected a top-level function named 'findElement'.");
+} else {
+  var target = { name: "target", children: [] };
+  var tree = {
+    children: [
+      { children: [ { children: [] }, target ] },
+      { children: [ { children: [] } ] },
+      { children: [] }
+    ]
+  };
+
+  var result = findElement(tree, target);
+  __check("finds a nested target and returns its path", __deepEqual(result, [0, 1]), "got " + JSON.stringify(result));
+
+  var rootResult = findElement(tree, tree);
+  __check("returns an empty array when root is the target", __deepEqual(rootResult, []), "got " + JSON.stringify(rootResult));
+
+  var missing = { name: "not in tree", children: [] };
+  var missingResult = findElement(tree, missing);
+  __check("returns null when the target isn't in the tree", missingResult === null, "got " + JSON.stringify(missingResult));
+}
+`;
 
 const DOM_FINDER_SOLUTION = `function findElement(root, target) {
   if (root === target) return [];
@@ -66,9 +96,17 @@ export function DomFinderQuestion() {
         <DomFinderTrace />
       </AnimationCard>
 
-      <P>Try writing it yourself first, then compare against this:</P>
+      <P>
+        Write your solution below and run it against a few checks. They run
+        in a plain JS sandbox rather than a real page, so the test tree is
+        built from plain objects shaped like <Code>{"{ children: [...] }"}</Code>{" "}
+        instead of actual DOM nodes — your algorithm can&apos;t tell the
+        difference, since it only ever touches <Code>.children</Code>.
+      </P>
 
-      <Reveal>
+      <CodePlayground slug="dom-finder" starterCode={DOM_FINDER_STARTER} testCode={DOM_FINDER_TESTS} />
+
+      <Reveal label="Show reference solution">
         <CodeBlock code={DOM_FINDER_SOLUTION} />
       </Reveal>
 
