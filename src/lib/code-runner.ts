@@ -48,9 +48,19 @@ self.onmessage = function (e) {
       '  }\\n' +
       '  return true;\\n' +
       '}\\n';
-    var harness = preamble + userCode + '\\n' + testCode + '\\n' + 'return __results;';
-    var results = new Function(harness)();
-    self.postMessage({ ok: true, results: results });
+    // The test suite runs inside an async IIFE so it's free to use
+    // "await" (needed for anything promise-based) — a synchronous test
+    // suite works exactly the same as before, it just resolves on the
+    // next microtask instead of returning immediately.
+    var harness =
+      preamble + userCode + '\\n' +
+      'return (async function () {\\n' + testCode + '\\n' + 'return __results;\\n' + '})();';
+    var resultPromise = new Function(harness)();
+    Promise.resolve(resultPromise).then(function (results) {
+      self.postMessage({ ok: true, results: results });
+    }, function (err) {
+      self.postMessage({ ok: false, error: (err && err.message) ? err.message : String(err) });
+    });
   } catch (err) {
     self.postMessage({ ok: false, error: (err && err.message) ? err.message : String(err) });
   }

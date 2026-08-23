@@ -8,12 +8,14 @@ import { MemoizeQuestion } from "@/content/coding-questions/questions/memoize";
 import { DomFinderQuestion } from "@/content/coding-questions/questions/dom-finder";
 import { FlattenArrayQuestion } from "@/content/coding-questions/questions/flatten-array";
 import { FlattenObjectQuestion } from "@/content/coding-questions/questions/flatten-object";
+import { PromiseAllQuestion } from "@/content/coding-questions/questions/promise-all";
 
 const CONTENT: Record<string, React.ComponentType> = {
   memoize: MemoizeQuestion,
   "dom-finder": DomFinderQuestion,
   "flatten-array": FlattenArrayQuestion,
   "flatten-object": FlattenObjectQuestion,
+  "promise-all": PromiseAllQuestion,
 };
 
 export function generateStaticParams() {

@@ -34,6 +34,12 @@ export const codingQuestions: CodingQuestion[] = [
     difficulty: "Medium",
     tags: ["Recursion", "Objects"],
   },
+  {
+    slug: "promise-all",
+    title: "Implement Promise.all",
+    difficulty: "Hard",
+    tags: ["Promises", "Async"],
+  },
 ];
 
 export function getCodingQuestion(slug: string) {
